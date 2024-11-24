@@ -1,14 +1,18 @@
 package com.jiro.student_marksheet_management.services.impl.academic;
 
 import com.jiro.student_marksheet_management.entities.academic.ExamRoutine;
+import com.jiro.student_marksheet_management.entities.user.User;
 import com.jiro.student_marksheet_management.repositories.academic.ExamRoutineRepository;
 import com.jiro.student_marksheet_management.services.interfaces.academic.ExamRoutineService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class ExamRoutineServiceImpl implements ExamRoutineService {
 
@@ -22,6 +26,8 @@ public class ExamRoutineServiceImpl implements ExamRoutineService {
 
     @Override
     public ExamRoutine getExamRoutineById(Long id) {
+//        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        log.info("user {}",user);
         Optional<ExamRoutine> examRoutine = examRoutineRepository.findById(id);
         return examRoutine.orElseThrow(() -> new RuntimeException("ExamRoutine not found with id " + id));
     }
